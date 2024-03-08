@@ -1,0 +1,193 @@
+.App {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fefbefdb;
+}
+
+button {
+  border-color: #357edd;
+  border-width: 3px;
+  background-color: #fefbefdb;
+  color: #357edd;
+  font-family: "open sans", sans-serif;
+  outline: none;
+  font-weight: 600;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 462px;
+  margin: 0px 100px 10px 100px;
+  padding: 0;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.calculateButton {
+  background-color: #357edd;
+  color: #fefbefdb;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 40px;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 5px 5px #225392;
+}
+
+.clickedButton {
+  opacity: 0.5; /* Adjust opacity to visually indicate disabled state */
+  cursor: not-allowed; /* Change cursor to indicate button is not clickable */
+  border-style: dashed;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  font-size: 40px;
+  margin: 10px;
+  background-color: #357edd;
+  color: #235290;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 100vh; */
+}
+
+.failureButton {
+  background-color: #ff4136;
+  border-color: #ff4136;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  font-size: 40px;
+  margin: 10px;
+}
+
+h1 {
+  color: #fefbefdb;
+  font-size: 50px;
+  margin: 5px;
+}
+
+h3 {
+  color: #fefbefdb;
+}
+
+h3.targetDisplay {
+  color: #2760ab;
+}
+
+.header {
+  background-color: #357edd;
+  margin-bottom: 10px;
+  padding: 40px;
+  justify-content: center;
+  border-radius: 20px;
+  /* box-shadow: 0px 0px 80px 80px #357edd; */
+}
+
+.numberButton {
+  background-color: #fefbefdb;
+  border-style: dashed;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  font-size: 40px;
+  margin: 10px;
+}
+
+.numberButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 100px 10px 100px; */
+}
+
+.operationButton {
+  border-radius: 30%;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  margin: 10px 15px;
+  padding: 0;
+  box-shadow: 2px 2px #2760ab;
+}
+
+/* .operationButton:active {
+  width: 50px;
+  height: 50px;
+} */
+
+button {
+  margin-bottom: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* Adjust as needed for spacing between rows */
+}
+
+.stack {
+  justify-content: left;
+  margin: 15px 0 10px 30px;
+  color: #2760ab;
+}
+
+.startButton {
+  margin: 0;
+  padding: 10px;
+  font-size: 30px;
+  border-radius: 15px;
+  box-shadow: 2px 2px #2760ab;
+}
+
+.successButton {
+  /* background-color: green; */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  font-size: 40px;
+  margin: 10px;
+  color: black;
+  animation: colorRotate 3s linear 0s infinite;
+}
+
+.targetRow {
+  background-color: #fefbefdb;
+  margin: 0 130px 0 130px;
+  /* max-width: 50%; */
+}
+
+.undoButton {
+  margin-left: 10px;
+  border-radius: 7px;
+}
+
+@keyframes colorRotate {
+  from {
+    background-color: #6666ff;
+  }
+  10% {
+    background-color: #0099ff;
+  }
+  50% {
+    background-color: #00ff00;
+  }
+  75% {
+    background-color: #ff3399;
+  }
+  100% {
+    background-color: #6666ff;
+  }
+}
