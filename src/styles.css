@@ -63,6 +63,7 @@ button:active {
 .failureButton {
   background-color: #ff4136;
   border-color: #ff4136;
+  color: #fefbefdb;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -159,7 +160,7 @@ button {
   height: 120px;
   font-size: 40px;
   margin: 10px;
-  color: black;
+  color: #fefbefdb;
   animation: colorRotate 3s linear 0s infinite;
 }
 

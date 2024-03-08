@@ -10,20 +10,20 @@ import { React, useState, useEffect } from "react";
 export const Button = ({ targetNumber }) => {
   let randomNumbers;
   const [buttonStates, setButtonStates] = useState([
-    { style: "numberButton", disabled: false },
-    { style: "numberButton", disabled: false },
-    { style: "numberButton", disabled: false },
-    { style: "numberButton", disabled: false },
-    { style: "numberButton", disabled: false },
-    { style: "numberButton", disabled: false },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
   ]);
-  const [buttonTexts, setButtonTexts] = useState([]);
   const [clickedButtons, setClickedButtons] = useState([]);
   const [clickedIndices, setClickedIndices] = useState([]);
   const [numbersGenerated, setNumbersGenerated] = useState(false);
   const [currentTotal, setCurrentTotal] = useState([]);
   const [success, setSuccess] = useState(null);
 
+  // only triggers handleSuccess when success is explicitly set to true, ignores when set to false
   useEffect(() => {
     if (success !== null) {
       handleSuccess();
@@ -43,14 +43,6 @@ export const Button = ({ targetNumber }) => {
         "/": "*",
       };
       steps = [];
-      setButtonStates([
-        { style: "numberButton", disabled: false },
-        { style: "numberButton", disabled: false },
-        { style: "numberButton", disabled: false },
-        { style: "numberButton", disabled: false },
-        { style: "numberButton", disabled: false },
-        { style: "numberButton", disabled: false },
-      ]);
 
       // Generate 6 random numbers
       randomNumbers = Array.from({ length: 5 }, () => {
@@ -71,16 +63,19 @@ export const Button = ({ targetNumber }) => {
     } while (targetCopy > 100);
     randomNumbers.push({ number: targetCopy });
 
-    // shuffle randomNumbers so that the order is not preserved
-    // randomNumbers = shuffleArray(randomNumbers);
-    // Create an array of strings representing the numbers and operations
-    const buttonTexts = randomNumbers.map(({ number }) => {
-      return `${number}`;
-    });
-
     console.log("targetCopy and steps:", targetCopy, steps);
 
-    setButtonTexts(buttonTexts);
+    // Map over the defaultButtonState array and assign the buttonTexts
+    setButtonStates(prevButtonStates => {
+      return prevButtonStates.map((_, index) => {
+        return {
+          style: "numberButton",
+          disabled: false,
+          text: randomNumbers[index].number
+        }
+      });
+    });
+
     setNumbersGenerated(true);
     setSuccess(null);
     setClickedButtons([]);
@@ -97,46 +92,48 @@ export const Button = ({ targetNumber }) => {
     }
   };
 
-  const handleClick = (buttonText, index) => {
+  const handleClick = (index) => {
     if (numbersGenerated) {
       const updatedButtonStates = [...buttonStates];
       // set the button state to clicked and disabled
       updatedButtonStates[index].style = "clickedButton";
       updatedButtonStates[index].disabled = true;
       setButtonStates(updatedButtonStates);
-
       setClickedIndices([...clickedIndices, index]);
-      setClickedButtons([...clickedButtons, buttonText]);
-      // console.log("clickedButtons:", clickedButtons);
-      let result = calculateExpression(clickedButtons.concat(buttonText));
+      setClickedButtons([...clickedButtons, updatedButtonStates[index].text]);
+
+      let result = calculateExpression(clickedButtons.concat(updatedButtonStates[index].text));
       setCurrentTotal(result);
       // console.log("Result:", result); // You can use the result as needed
       // console.log("clickedIndices:", clickedIndices);
-      // make a copy of button states
     }
   };
 
+
+
   const handleSuccess = () => {
     if (numbersGenerated) {
-      if (success) {
-        setButtonStates([
-          { style: "successButton", disabled: true },
-          { style: "successButton", disabled: true },
-          { style: "successButton", disabled: true },
-          { style: "successButton", disabled: true },
-          { style: "successButton", disabled: true },
-          { style: "successButton", disabled: true },
-        ]);
-      } else {
-        setButtonStates([
-          { style: "failureButton", disabled: true },
-          { style: "failureButton", disabled: true },
-          { style: "failureButton", disabled: true },
-          { style: "failureButton", disabled: true },
-          { style: "failureButton", disabled: true },
-          { style: "failureButton", disabled: true },
-        ]);
-      }
+      setButtonStates(prevButtonStates => {
+        if (success) {
+          return prevButtonStates.map((_, index) => {
+            const successText = ["S", "U", "C", "C", "E", "SS"];
+            return {
+              style: "successButton",
+              disabled: true,
+              text: successText[index]
+            };
+          });
+        } else {
+          return prevButtonStates.map((_, index) => {
+            const failureText = ["F", "AI", "L", "U", "R", "E"];
+            return {
+              style: "failureButton",
+              disabled: true,
+              text: failureText[index]
+            };
+          });
+        }
+      });
     }
   };
 
@@ -147,8 +144,7 @@ export const Button = ({ targetNumber }) => {
       // make a copy of buttonState
       const undoButtonStates = [...buttonStates];
       // reset the last button clicked to it's default
-      undoButtonStates[index].style = "numberButton";
-      undoButtonStates[index].disabled = false;
+      undoButtonStates[index] = { style: "numberButton", disabled: false };
       // set the copy as buttonState
       setButtonStates(undoButtonStates);
     }
@@ -182,10 +178,10 @@ export const Button = ({ targetNumber }) => {
           <button
             key={index}
             className={buttonStates[index].style}
-            onClick={() => handleClick(buttonTexts[index], index)}
+            onClick={() => handleClick(index)}
             disabled={buttonStates[index].disabled}
           >
-            {buttonTexts[index]}
+            {buttonStates[index].text}
           </button>
         ))}
       </div>
@@ -226,17 +222,22 @@ export const Button = ({ targetNumber }) => {
             // console.log("result:", result);
             if (result === targetNumber) {
               setSuccess(true);
-              console.log("success after set to true: ", success)
               // handleSuccess(true);
-              setButtonTexts(["S", "U", "C", "C", "C", "SS"]);
+              setButtonStates(prevButtonStates => {
+                return prevButtonStates.map((state, index) => {
+                  const successText = ["S", "U", "C", "C", "C", "SS"];
+                  return {
+                    ...state,
+                    text: successText[index]
+                  };
+                });
+              });
               console.log("Congratulations! You've reached the target number.");
             } else {
               setSuccess(false);
               // handleSuccess(false);
             }
-            console.log("success outside conditional: ", success)
             handleSuccess();
-            // Handle result if needed
           }}
         >
           Calculate
