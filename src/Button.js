@@ -85,7 +85,7 @@ export const Button = ({ targetNumber }) => {
 
   const handleOperationClick = (operation) => {
     if (numbersGenerated) {
-      setClickedIndices([...clickedIndices, operation]);
+      // setClickedIndices([...clickedIndices, operation]);
       setClickedButtons([...clickedButtons, operation]);
       const result = calculateExpression(clickedButtons.concat([operation]));
       setCurrentTotal(result);
@@ -137,23 +137,24 @@ export const Button = ({ targetNumber }) => {
     }
   };
 
-  const handleUndo = () => {
-    let index = clickedIndices[clickedIndices.length - 1];
-    // if the last button clicked was a number button
-    if (Number.isInteger(index)) {
-      // make a copy of buttonState
-      const undoButtonStates = [...buttonStates];
-      // reset the last button clicked to it's default
-      undoButtonStates[index] = { style: "numberButton", disabled: false };
-      // set the copy as buttonState
-      setButtonStates(undoButtonStates);
-    }
+  const validOperations = ["+", "-", "*", "/"];
 
-    setClickedIndices(clickedIndices.slice(0, -1));
+
+  const handleUndo = () => {
+    let lastButton = clickedButtons[clickedButtons.length - 1];
+    if (!validOperations.includes(lastButton)) {
+      // if the last button clicked is a number button, 
+      // get the index of the last button clicked
+      let index = clickedIndices[clickedIndices.length - 1];
+      const undoButtonStates = [...buttonStates];
+      undoButtonStates[index].style = "numberButton";
+      undoButtonStates[index].disabled = false;
+      setButtonStates(undoButtonStates);
+      setClickedIndices(clickedIndices.slice(0, -1));
+    }
     setClickedButtons(clickedButtons.slice(0, -1));
     const result = calculateExpression(clickedButtons);
     setCurrentTotal(result);
-
   };
 
   return (
@@ -210,7 +211,7 @@ export const Button = ({ targetNumber }) => {
         >
           /
         </button>
-        <button className="undoButton" disabled={success} onClick={() => handleUndo()}>
+        <button className="undoButton" disabled={success | clickedButtons.length === 0} onClick={() => handleUndo()}>
           Undo
         </button>
       </div>
