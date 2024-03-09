@@ -2,7 +2,6 @@ import {
   applyOperation,
   calculateResult,
   isIntegerAchievable,
-  shuffleArray,
   calculateExpression
 } from "./Calculate";
 import { React, useState, useEffect } from "react";
@@ -23,6 +22,8 @@ export const Button = ({ targetNumber }) => {
   const [currentTotal, setCurrentTotal] = useState([]);
   const [success, setSuccess] = useState(null);
   const [winTally, setWinTally] = useState(0);
+
+  const validOperations = ["+", "-", "*", "/"];
 
   // only triggers handleVerdict when success is explicitly set to true, ignores when set to false
   useEffect(() => {
@@ -85,11 +86,13 @@ export const Button = ({ targetNumber }) => {
   };
 
   const handleOperationClick = (operation) => {
-    if (numbersGenerated) {
+    if (numbersGenerated && !validOperations.includes(clickedButtons[clickedButtons.length-1]) && clickedButtons.length != 0) {
       // setClickedIndices([...clickedIndices, operation]);
       setClickedButtons([...clickedButtons, operation]);
       const result = calculateExpression(clickedButtons.concat([operation]));
       setCurrentTotal(result);
+    } else {
+      console.log("invalid operation use");
     }
   };
 
@@ -107,8 +110,6 @@ export const Button = ({ targetNumber }) => {
       setCurrentTotal(result);
     }
   };
-
-
 
   const handleVerdict = () => {
     if (numbersGenerated) {
@@ -138,10 +139,6 @@ export const Button = ({ targetNumber }) => {
       // generateRandomNumbers();
     }
   };
-
-  const validOperations = ["+", "-", "*", "/"];
-  const operationsDict = [{ "+": "-" }, { "-": "+" }, { "*": "/" }, { "/": "*" }]
-
 
   const handleUndo = () => {
     let lastButton = clickedButtons[clickedButtons.length - 1];
@@ -247,7 +244,7 @@ export const Button = ({ targetNumber }) => {
               setSuccess(true);
               setButtonStates(prevButtonStates => {
                 return prevButtonStates.map((state, index) => {
-                  const successText = ["S", "U", "C", "C", "C", "SS"];
+                  const successText = ["S", "U", "C", "C", "E", "SS"];
                   return {
                     ...state,
                     text: successText[index]

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export const applyOperation = (num1, operation, num2) => {
   switch (operation) {
     case "+":
