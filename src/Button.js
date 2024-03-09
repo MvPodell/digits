@@ -105,8 +105,6 @@ export const Button = ({ targetNumber }) => {
 
       let result = calculateExpression(clickedButtons.concat(updatedButtonStates[index].text));
       setCurrentTotal(result);
-      // console.log("Result:", result); // You can use the result as needed
-      // console.log("clickedIndices:", clickedIndices);
     }
   };
 
@@ -148,10 +146,7 @@ export const Button = ({ targetNumber }) => {
   const handleUndo = () => {
     let lastButton = clickedButtons[clickedButtons.length - 1];
     let result;
-    console.log("button being undone: ", lastButton);
-
     if (!validOperations.includes(lastButton)) {
-      console.log("number undone!")
       // if the last button clicked is a number button, 
       // get the index of the last button clicked
       let index = clickedIndices[clickedIndices.length - 1];
