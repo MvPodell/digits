@@ -21,7 +21,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   max-width: 462px;
-  margin: 0px 100px 10px 100px;
+  margin: 0px 0px 10px 0px;
   padding: 0;
 }
 
@@ -140,9 +140,10 @@ button {
 }
 
 .stack {
-  justify-content: left;
-  margin: 15px 0 10px 30px;
+  /* justify-content: left; */
+  margin: 15px 0 10px 0px;
   color: #2760ab;
+  font-size: 40px;
 }
 
 .startButton {
@@ -164,6 +165,9 @@ button {
   animation: colorRotate 3s linear 0s infinite;
 }
 
+.tally {
+  color: #2760ab
+}
 .targetRow {
   background-color: #fefbefdb;
   margin: 0 130px 0 130px;
@@ -192,3 +196,50 @@ button {
     background-color: #6666ff;
   }
 }
+
+
+/* @media screen and (min-width: 768px) {
+  .container {
+    display: flex;
+    align-items: center;
+  }
+
+  .header {
+    flex: 0.8;
+    background-color: #357edd;
+    margin-bottom: 10px;
+    padding: 40px;
+    justify-content: center;
+    border-radius: 20px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header {
+    background-color: #357edd;
+    margin-bottom: 10px;
+    padding: 40px;
+    justify-content: center;
+    border-radius: 20px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 462px;
+    margin: 0px 0px 10px 0px;
+    padding: 0;
+  }
+} */
