@@ -5,6 +5,8 @@ import {
   calculateExpression
 } from "./Calculate";
 import { React, useState, useEffect } from "react";
+import { NumberButtons } from "./NumberButtons";
+import { CalculateButton, handleVerdict } from "./CalculateButton";
 
 export const Button = ({ targetNumber }) => {
   let randomNumbers;
@@ -23,12 +25,10 @@ export const Button = ({ targetNumber }) => {
   const [success, setSuccess] = useState(null);
   const [winTally, setWinTally] = useState(0);
 
-  const validOperations = ["+", "-", "*", "/"];
-
   // only triggers handleVerdict when success is explicitly set to true, ignores when set to false
   useEffect(() => {
     if (success !== null) {
-      handleVerdict();
+      handleVerdict(success, numbersGenerated, setButtonStates, generateRandomNumbers);
     }
   }, [success]);
 
@@ -85,101 +85,6 @@ export const Button = ({ targetNumber }) => {
     setCurrentTotal([]);
   };
 
-  const handleOperationClick = (operation) => {
-    if (numbersGenerated && !validOperations.includes(clickedButtons[clickedButtons.length-1]) && clickedButtons.length != 0) {
-      // setClickedIndices([...clickedIndices, operation]);
-      setClickedButtons([...clickedButtons, operation]);
-      const result = calculateExpression(clickedButtons.concat([operation]));
-      setCurrentTotal(result);
-    } else {
-      console.log("invalid operation use");
-    }
-  };
-
-  const handleClick = (index) => {
-    if (numbersGenerated) {
-      const updatedButtonStates = [...buttonStates];
-      // set the button state to clicked and disabled
-      updatedButtonStates[index].style = "clickedButton";
-      updatedButtonStates[index].disabled = true;
-      setButtonStates(updatedButtonStates);
-      setClickedIndices([...clickedIndices, index]);
-      setClickedButtons([...clickedButtons, updatedButtonStates[index].text]);
-
-      let result = calculateExpression(clickedButtons.concat(updatedButtonStates[index].text));
-      setCurrentTotal(result);
-    }
-  };
-
-  const handleVerdict = () => {
-    if (numbersGenerated) {
-      setButtonStates(prevButtonStates => {
-        if (success) {
-          return prevButtonStates.map((_, index) => {
-            const successText = ["S", "U", "C", "C", "E", "SS"];
-            return {
-              style: "successButton",
-              disabled: true,
-              text: successText[index]
-            };
-          });
-
-        } else {
-          return prevButtonStates.map((_, index) => {
-            const failureText = ["F", "AI", "L", "U", "R", "E"];
-            return {
-              style: "failureButton",
-              disabled: true,
-              text: failureText[index]
-            };
-          });
-        }
-      });
-      setTimeout(generateRandomNumbers, 2000);
-      // generateRandomNumbers();
-    }
-  };
-
-  const handleUndo = () => {
-    let lastButton = clickedButtons[clickedButtons.length - 1];
-    let result;
-    if (!validOperations.includes(lastButton)) {
-      // if the last button clicked is a number button, 
-      // get the index of the last button clicked
-      let index = clickedIndices[clickedIndices.length - 1];
-      // change the last number button clicked back to normal styling
-      const undoButtonStates = [...buttonStates];
-      undoButtonStates[index].style = "numberButton";
-      undoButtonStates[index].disabled = false;
-      setButtonStates(undoButtonStates);
-      // remove record that number button was clicked
-      setClickedIndices(clickedIndices.slice(0, -1));
-      setClickedButtons(clickedButtons.slice(0, -1));
-      // recalculate total without undone number
-
-      if (clickedButtons.length > 3) {
-        result = calculateExpression(clickedButtons.slice(0, -1));
-        setCurrentTotal(result);
-      } else if (clickedButtons.length === 3) {
-        setCurrentTotal(clickedButtons.slice(0, -1));
-      } else if (clickedButtons.length === 1) {
-        setCurrentTotal([]);
-      } 
-    } else {
-      // if last button is an operator, remove record of it
-      setClickedButtons(clickedButtons.slice(0, -1));
-      // result = calculateExpression(clickedButtons.slice(0, -1));
-      if (clickedButtons.length === 2) {
-        setCurrentTotal([calculateExpression(clickedButtons.slice(0, -1))])
-      } else {
-        // setCurrentTotal([calculateExpression(clickedButtons.slice(0, -2)), clickedButtons[clickedButtons.length - 2]]);
-        setCurrentTotal([calculateExpression(clickedButtons.slice(0, -1))]);
-      };
-
-    }
-
-  };
-
   return (
     <div>
       <div className="row">
@@ -189,81 +94,29 @@ export const Button = ({ targetNumber }) => {
       </div>
       {numbersGenerated && currentTotal.length != 0 && (
         <div className="row stack">{currentTotal}</div>
-        )}
+      )}
       {currentTotal.length === 0 && (
         <div className="row stack">0</div>
       )}
-      <div className="numberButtonContainer">
-        {[...Array(6)].map((_, index) => (
-          <button
-            key={index}
-            className={buttonStates[index].style}
-            onClick={() => handleClick(index)}
-            disabled={buttonStates[index].disabled}
-          >
-            {buttonStates[index].text}
-          </button>
-        ))}
-      </div>
-      <div>
-        <button
-          className="operationButton"
-          onClick={() => handleOperationClick("+")}
-        >
-          +
-        </button>
-        <button
-          className="operationButton"
-          onClick={() => handleOperationClick("-")}
-        >
-          -
-        </button>
-        <button
-          className="operationButton"
-          onClick={() => handleOperationClick("*")}
-        >
-          *
-        </button>
-        <button
-          className="operationButton"
-          onClick={() => handleOperationClick("/")}
-        >
-          /
-        </button>
-        <button className="undoButton" disabled={success | clickedButtons.length === 0} onClick={() => handleUndo()}>
-          Undo
-        </button>
-      </div>
-      <div>
-        <button
-          className="calculateButton"
-          onClick={() => {
-            const result = calculateResult(clickedButtons);
-            // correct answer
-            if (result === targetNumber) {
-              setSuccess(true);
-              setButtonStates(prevButtonStates => {
-                return prevButtonStates.map((state, index) => {
-                  const successText = ["S", "U", "C", "C", "E", "SS"];
-                  return {
-                    ...state,
-                    text: successText[index]
-                  };
-                });
-              });
-              console.log("Congratulations! You've reached the target number.");
-              setWinTally(winTally + 1);
-            } else {
-              // incorrect answer - reset win tally
-              setSuccess(false);
-              setWinTally(0);
-            }
-            handleVerdict();
-          }}
-        >
-          Calculate
-        </button>
-      </div>
+      <NumberButtons
+        buttonStates={buttonStates}
+        setButtonStates={setButtonStates}
+        clickedButtons={clickedButtons}
+        setClickedButtons={setClickedButtons}
+        clickedIndices={clickedIndices}
+        setClickedIndices={setClickedIndices}
+        setCurrentTotal={setCurrentTotal}
+        numbersGenerated={numbersGenerated}
+        success={success}
+      />
+      <CalculateButton
+        clickedButtons={clickedButtons}
+        targetNumber={targetNumber}
+        setSuccess={setSuccess}
+        winTally={winTally}
+        setWinTally={setWinTally}
+        setButtonStates={setButtonStates}
+      />
       <div className="row tally">
         Number of wins in a row: {winTally}
       </div>
