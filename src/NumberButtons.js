@@ -73,7 +73,7 @@ export const NumberButtons = ({ buttonStates, setButtonStates, clickedButtons, s
 
 
     return (
-        <div>
+        <div className="buttonContainer">
             <div className="numberButtonContainer">
                 {[...Array(6)].map((_, index) => (
                     <button
