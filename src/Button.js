@@ -1,8 +1,6 @@
 import {
   applyOperation,
-  calculateResult,
   isIntegerAchievable,
-  calculateExpression
 } from "./Calculate";
 import { React, useState, useEffect } from "react";
 import { NumberButtons } from "./NumberButtons";
