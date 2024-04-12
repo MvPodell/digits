@@ -1,5 +1,5 @@
 import React from "react";
-import { calculateResult } from "./Calculate";
+import { calculateResult } from "../Calculate";
 export const CalculateButton = ({clickedButtons, targetNumber, setSuccess, winTally, setWinTally, setButtonStates}) => {
     return (
         <div>

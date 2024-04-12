@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { calculateExpression } from "./Calculate";
+import { calculateExpression } from "../Calculate";
 
 export const NumberButtons = ({ buttonStates, setButtonStates, clickedButtons, setClickedButtons, clickedIndices, setClickedIndices, setCurrentTotal, numbersGenerated, success }) => {
     const validOperations = ["+", "-", "*", "/"];

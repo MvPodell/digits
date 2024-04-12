@@ -1,7 +1,7 @@
 import {
   applyOperation,
   isIntegerAchievable,
-} from "./Calculate";
+} from "../Calculate";
 import { React, useState, useEffect } from "react";
 import { NumberButtons } from "./NumberButtons";
 import { CalculateButton, handleVerdict } from "./CalculateButton";
