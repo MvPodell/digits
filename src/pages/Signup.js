@@ -26,7 +26,7 @@ const Signup = () => {
     };
 
     return(
-        <div className = "container">
+        <div className = "container min-vh-100">
             <div className = "row justify-content-center">
                 <form className = "col-md-4 mt-3 pt-3 pb-3">
                     { "" !== notice &&
@@ -36,7 +36,7 @@ const Signup = () => {
                     }
                     <div className = "form-floating mb-3">
                         <input id = "signupEmail" type = "email" className = "form-control" aria-describedby = "emailHelp" placeholder = "name@example.com" value = { email } onChange = { (e) => setEmail(e.target.value) }></input>
-                        <label htmlFor = "signupEmail" className = "form-label">Enter an email address for your username</label>
+                        <label htmlFor = "signupEmail" className = "form-label">Enter an email address</label>
                     </div>
                     <div className = "form-floating mb-3">
                         <input id = "signupPassword" type = "password" className = "form-control" placeholder = "Password" value = { password } onChange = { (e) => setPassword(e.target.value) }></input>
