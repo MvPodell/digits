@@ -1,30 +1,54 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
+import { auth } from "../Firebase";
+import { signOut } from "firebase/auth";
 import "../styles.css";
 
-export const Home = ()=> {
+export const Home = () => {
   const navigate = useNavigate();
-  const startGame = () => {
-    navigate("./digits")
-  };
-  const handleLogin = () => {
-    navigate("./login")
-  };
+  const logoutUser = async (e) => {
+    e.preventDefault();
+
+    await signOut(auth);
+    navigate("/home");
+  }
+
+  const user = auth.currentUser;
+
   return (
     <div className="home">
       <div className="homeBody">
+        {auth.currentUser && (
+          <p>Welcome <em className="text-decoration-underline">{user.email}</em>. You are logged in!</p>
+        )}
         <div className="header">
-          <button className="loginButton" onClick={handleLogin}>Login</button>
+          {!auth.currentUser && (
+            <Link to="/login">
+              <button className="loginButton">Login</button>
+            </Link>
+            
+          )}
+          {auth.currentUser && (
+            <button className="loginButton" onClick={(e) => logoutUser(e)}>Log out</button>
+          )}
         </div>
         <div className="homeContainer">
           <div className="blueRectangle">
             <h1>Digits Game</h1>
             <h3>Combine the given numbers to reach the target total!</h3>
           </div>
-          <button className="startButton" onClick={startGame}>
-            Play
-          </button>
+            <Link to="/digits">
+              <button className="startButton">Play</button>
+            </Link>
+        </div>
+        <div className="scoreboard">
+          {auth.currentUser && (
+            <>
+              <p>Your current high score is __.</p>
+              <p>The current high score is ___ from user ___. </p>
+            </>
+
+          )}
         </div>
       </div>
 

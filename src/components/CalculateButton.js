@@ -1,8 +1,10 @@
 import React from "react";
 import { calculateResult } from "../Calculate";
+import "../pages/game.css";
+
 export const CalculateButton = ({clickedButtons, targetNumber, setSuccess, winTally, setWinTally, setButtonStates}) => {
     return (
-        <div>
+        <div className="calculateButtonContainer">
             <button
                 className="calculateButton"
                 onClick={() => {

@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
     return(
-        <div className = "container-fluid">
+        <div className = "App">
             <Outlet />
         </div>
     )

@@ -14,7 +14,7 @@ const Profile = () => {
     }
 
     return(
-        <div className = "container">
+        <div className = "container min-vh-100">
             <div className = "row justify-content-center">
                 <div className = "col-md-4 text-center">
                     <p>Welcome <em className = "text-decoration-underline">{ user.email }</em>. You are logged in!</p>

@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { calculateExpression } from "../Calculate";
+import "../pages/game.css";
 
 export const NumberButtons = ({ buttonStates, setButtonStates, clickedButtons, setClickedButtons, clickedIndices, setClickedIndices, setCurrentTotal, numbersGenerated, success }) => {
     const validOperations = ["+", "-", "*", "/"];

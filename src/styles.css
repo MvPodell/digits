@@ -5,6 +5,7 @@
   align-items: center;
   width: 100%;
   background-color: #fefbefdb;
+  height: 100vh;
 }
 
 .blueRectangle {
@@ -20,7 +21,7 @@ button {
   border-width: 3px;
   background-color: #fefbefdb;
   color: #357edd;
-  font-family: "open sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   outline: none;
   font-weight: 600;
   margin-bottom: 10px;
@@ -32,27 +33,8 @@ button {
   justify-content: center;
 }
 
-.targetContainer {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 462px;
-  margin: 0px 0px 10px 0px;
-  padding: 0;
-}
-
 button:active {
   transform: scale(0.98);
-}
-
-.calculateButton {
-  background-color: #357edd;
-  color: #fefbefdb;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  font-size: 40px;
-  padding: 10px;
-  border-radius: 15px;
-  box-shadow: 5px 5px #225392;
 }
 
 .clickedButton {
@@ -66,12 +48,6 @@ button:active {
   margin: 5px;
   background-color: #357edd;
   color: #235290;
-}
-
-.gameContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .failureButton {
@@ -99,7 +75,7 @@ h3 {
 }
 
 h3.targetDisplay {
-  color: #2760ab;
+  color: #357edd;
   padding: 5px;
 }
 
@@ -141,58 +117,28 @@ h3.targetDisplay {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border-radius: 0.7rem;
-  box-shadow: 1px 1px #2760ab;
   border-width: 2px;
-}
-
-.numberButton {
-  background-color: #fefbefdb;
-  border-style: dashed;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  font-size: 40px;
-  margin: 5px;
-}
-
-.numberButtonContainer {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 350px;
-  justify-content: center;
-  align-items: center;
-}
-
-.operationButton {
-  border-radius: 30%;
-  width: 60px;
-  height: 60px;
-  font-size: 30px;
-  margin: 10px 10px;
-  padding: 0;
-  box-shadow: 2px 2px #2760ab;
 }
 
 .row {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
+}
+
+.scoreboard {
+  color: #357edd;
+  margin-top: 1rem;
 }
 
 .stack {
   margin: 0;
-  padding: 10px 0 10px 0px;
-  color: #2760ab;
+  padding-bottom: 10px;
+  color: #357edd;
   font-size: 40px;
 }
 
-.startButton {
-  margin: 0;
-  padding: 10px;
-  font-size: 1.5em;
-  border-radius: 15px;
-  box-shadow: 2px 2px #2760ab;
-}
+
 
 .successButton {
   border-radius: 50%;
@@ -205,7 +151,7 @@ h3.targetDisplay {
 }
 
 .tally {
-  color: #2760ab
+  color: #357edd
 }
 
 .targetRow {

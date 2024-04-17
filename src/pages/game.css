@@ -1,0 +1,117 @@
+.backarrow {
+    margin: 0 1.5rem
+}
+
+.bodyContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.calculateButton {
+    background-color: #357edd;
+    color: #fefbef;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 1rem 3rem;
+    border-radius: 15px;
+    /* box-shadow: 5px 5px #225392; */
+}
+
+.calculateButtonContainer {
+    margin: 1rem;
+}
+
+.game {
+    color: #357edd;
+    font-size: 4rem;
+    padding-bottom: 1.06rem;
+}
+
+.gameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gameHeader {
+    border-bottom: 2px solid #357edd;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gameSidePanel {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin: 2rem;
+    flex-grow: 1;
+}
+
+h1.game {
+    font-size: 4rem;
+}
+
+.loginButton {
+    margin: 0 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.7rem;
+    border-width: 2px;
+}
+
+.numberButton {
+    background-color: #fefbefdb;
+    border-style: dashed;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+    margin: 5px;
+}
+
+.numberButtonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 350px;
+    justify-content: center;
+    align-items: center;
+    margin: 0rem 1rem 1rem 1rem;
+}
+
+.operationButton {
+    border-radius: 30%;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    margin: 10px 10px;
+    padding: 0;
+}
+
+.sidePanelText {
+    color: #357EDD;
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.startButton {
+    margin: 1rem 1rem 0 1rem;
+    padding: 0.25rem;
+    width: 13rem;
+    font-size: 1.25em;
+    border-radius: 15px;
+    /* box-shadow: 2px 2px #2760ab; */
+}
+
+.targetContainer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 462px;
+    margin: 0px 1rem 1rem 1rem;
+    padding: 0;
+    flex-grow: 3;
+}
