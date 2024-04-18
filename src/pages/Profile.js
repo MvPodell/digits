@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { auth } from "../Firebase";
+import { auth } from "../firebase/Firebase";
 import { signOut } from "firebase/auth";
 
 const Profile = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { auth } from "../Firebase";
+import { auth } from "../firebase/Firebase";
 import { signOut } from "firebase/auth";
 import "../styles.css";
 
@@ -24,7 +24,7 @@ export const Home = () => {
         <div className="header">
           {!auth.currentUser && (
             <Link to="/login">
-              <button className="loginButton">Login</button>
+              <button className="homeLoginButton">Login</button>
             </Link>
             
           )}

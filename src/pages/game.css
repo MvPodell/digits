@@ -1,10 +1,20 @@
-.backarrow {
+/* .backarrow {
     margin: 0 1.5rem
-}
+} */
 
 .bodyContainer {
     display: flex;
     flex-direction: row;
+}
+
+.buttonsModule {
+    padding: 1rem;
+}
+
+.calculate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .calculateButton {
@@ -42,22 +52,34 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 1.5rem;
 }
 
-.gameSidePanel {
+.gameSidePanelLeft {
     display: flex;
     flex-direction: column;
     align-content: center;
     margin: 2rem;
     flex-grow: 1;
+    min-width: 150px;
+}
+
+.gameSidePanelRight {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin: 2rem;
+    flex-grow: 1;
+    justify-content: space-between;
+    min-width: 150px;
 }
 
 h1.game {
     font-size: 4rem;
 }
 
-.loginButton {
-    margin: 0 1.5rem;
+.gameLoginButton {
+    margin: 0;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border-radius: 0.7rem;
@@ -107,6 +129,12 @@ h1.game {
     /* box-shadow: 2px 2px #2760ab; */
 }
 
+.tally {
+    color: #357edd;
+    /* margin: 1rem; */
+    padding-bottom: 2rem;
+  }
+
 .targetContainer {
     display: flex;
     flex-wrap: wrap;
@@ -114,4 +142,10 @@ h1.game {
     margin: 0px 1rem 1rem 1rem;
     padding: 0;
     flex-grow: 3;
+    flex-direction: column;
 }
+
+.undoButton {
+    margin: 0 0.5rem;
+    border-radius: 7px;
+  }

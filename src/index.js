@@ -12,7 +12,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
-import Layout from "./pages/Layout";
+import App from "./pages/App";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   }, 
   {
     path: "/",
-    element: <Layout />,
+    element: <App />,
     children: [
       {
         path: "/digits",

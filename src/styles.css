@@ -112,7 +112,7 @@ h3.targetDisplay {
   align-items: center;
 }
 
-.loginButton {
+.homeLoginButton {
   margin: 0;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -150,18 +150,9 @@ h3.targetDisplay {
   animation: colorRotate 3s linear 0s infinite;
 }
 
-.tally {
-  color: #357edd
-}
-
 .targetRow {
   background-color: #fefbefdb;
   margin: 0 130px 0 130px;
-}
-
-.undoButton {
-  margin-left: 10px;
-  border-radius: 7px;
 }
 
 @keyframes colorRotate {

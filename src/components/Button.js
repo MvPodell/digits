@@ -4,24 +4,14 @@ import {
 } from "../Calculate";
 import { React, useState, useEffect } from "react";
 import { NumberButtons } from "./NumberButtons";
-import { CalculateButton, handleVerdict } from "./CalculateButton";
+import { handleVerdict } from "./CalculateButton";
 
-export const Button = ({ targetNumber }) => {
+export const Button = ( props ) => {
+  let {targetNumber, success, setSuccess, clickedButtons, setClickedButtons, buttonStates, setButtonStates} = props;
   let randomNumbers;
-  const [buttonStates, setButtonStates] = useState([
-    { style: "numberButton", disabled: false, text: "" },
-    { style: "numberButton", disabled: false, text: "" },
-    { style: "numberButton", disabled: false, text: "" },
-    { style: "numberButton", disabled: false, text: "" },
-    { style: "numberButton", disabled: false, text: "" },
-    { style: "numberButton", disabled: false, text: "" },
-  ]);
-  const [clickedButtons, setClickedButtons] = useState([]);
   const [clickedIndices, setClickedIndices] = useState([]);
   const [numbersGenerated, setNumbersGenerated] = useState(false);
   const [currentTotal, setCurrentTotal] = useState([]);
-  const [success, setSuccess] = useState(null);
-  const [winTally, setWinTally] = useState(0);
 
   // only triggers handleVerdict when success is explicitly set to true, ignores when set to false
   useEffect(() => {
@@ -84,7 +74,7 @@ export const Button = ({ targetNumber }) => {
   };
 
   return (
-    <div>
+    <div className="buttonsModule">
       <div className="row">
         <button className="startButton" onClick={generateRandomNumbers}>
           Generate Numbers
@@ -107,17 +97,6 @@ export const Button = ({ targetNumber }) => {
         numbersGenerated={numbersGenerated}
         success={success}
       />
-      <CalculateButton
-        clickedButtons={clickedButtons}
-        targetNumber={targetNumber}
-        setSuccess={setSuccess}
-        winTally={winTally}
-        setWinTally={setWinTally}
-        setButtonStates={setButtonStates}
-      />
-      <div className="row tally">
-        Number of wins in a row: {winTally}
-      </div>
     </div>
   );
 };

@@ -2,9 +2,22 @@ import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import "./game.css";
 import { Link } from "react-router-dom";
+import { CalculateButton } from "../components/CalculateButton";
+import { set } from "firebase/database";
 
 export const Game = () => {
   const [targetNumber, setTargetNumber] = useState(0);
+  const [success, setSuccess] = useState(null);
+  const [winTally, setWinTally] = useState(0);
+  const [clickedButtons, setClickedButtons] = useState([]);
+  const [buttonStates, setButtonStates] = useState([
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+    { style: "numberButton", disabled: false, text: "" },
+  ]);
 
   const generateTargetNumber = () => {
     const target = Math.floor(Math.random() * 100) + 1;
@@ -26,21 +39,42 @@ export const Game = () => {
         </div>
         <h1 className="game">Digits</h1>
         <Link to="/login">
-          <button className="loginButton">Login</button>
+          <button className="gameLoginButton">Login</button>
         </Link>
       </div>
-      {/* <div className="targetRow">
-            <h3 className="targetDisplay">Target Number: {targetNumber}</h3>
-          </div> */}
       <div className="bodyContainer">
-        <div className="gameSidePanel">
-          <div className="sidePanelText">Target Number</div>
+        <div className="gameSidePanelLeft">
+            <div className="sidePanelText">Target Number</div>
+            <div className="sidePanelText">{targetNumber}</div>
         </div>
         <div className="targetContainer">
-          <Button targetNumber={targetNumber} />
+          <Button
+            targetNumber={targetNumber}
+            success={success}
+            setSuccess={setSuccess}
+            clickedButtons={clickedButtons}
+            setClickedButtons={setClickedButtons}
+            buttonStates={buttonStates}
+            setButtonStates={setButtonStates}
+          />
+          <div className="calculate">
+            <div className="row">
+              <CalculateButton
+                clickedButtons={clickedButtons}
+                targetNumber={targetNumber}
+                setSuccess={setSuccess}
+                winTally={winTally}
+                setWinTally={setWinTally}
+                setButtonStates={setButtonStates}
+              />
+            </div>
+          </div>
         </div>
-        <div className="gameSidePanel">
+        <div className="gameSidePanelRight">
           <div className="sidePanelText">Top Score</div>
+          <div className="row tally">
+              Win Streak: {winTally}
+            </div>
         </div>
       </div>
 
