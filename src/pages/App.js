@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { AuthUserProvider } from "../firebase/auth";
 
 const App = () => {
     return(

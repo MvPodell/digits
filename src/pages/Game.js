@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Button from "../components/Button";
 import "./game.css";
-import { Link } from "react-router-dom";
+import Button from "../components/Button";
+import { useNavigate, Link } from "react-router-dom";
 import { CalculateButton } from "../components/CalculateButton";
-import { set } from "firebase/database";
+import { auth, db } from "../firebase/firebase";
+import { signOut } from "firebase/auth";
+import "../firebase/firebase";
 
 export const Game = () => {
   const [targetNumber, setTargetNumber] = useState(0);
@@ -18,6 +20,16 @@ export const Game = () => {
     { style: "numberButton", disabled: false, text: "" },
     { style: "numberButton", disabled: false, text: "" },
   ]);
+
+  const navigate = useNavigate();
+  const logoutUser = async (e) => {
+    e.preventDefault();
+
+    await signOut(auth);
+    navigate("/home");
+  }
+
+  const user = auth.currentUser;
 
   const generateTargetNumber = () => {
     const target = Math.floor(Math.random() * 100) + 1;
@@ -38,9 +50,16 @@ export const Game = () => {
           </Link>
         </div>
         <h1 className="game">Digits</h1>
-        <Link to="/login">
-          <button className="gameLoginButton">Login</button>
-        </Link>
+        {!user && (
+          <Link to="/login">
+            <button className="gameLoginButton">Login</button>
+          </Link>
+        )}
+        {user && (
+          <Link to="/login">
+            <button className="gameLoginButton" onClick={(e) => logoutUser(e)}>Log Out</button>
+          </Link>
+        )}
       </div>
       <div className="bodyContainer">
         <div className="gameSidePanelLeft">
@@ -62,6 +81,7 @@ export const Game = () => {
               <CalculateButton
                 clickedButtons={clickedButtons}
                 targetNumber={targetNumber}
+                success={success}
                 setSuccess={setSuccess}
                 winTally={winTally}
                 setWinTally={setWinTally}

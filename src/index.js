@@ -20,27 +20,32 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage fileName={"Home"}/>
   }, 
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage fileName={"App"}/>,
     children: [
       {
         path: "/digits",
-        element: <Game />
+        element: <Game />,
+        errorElement: <ErrorPage fileName={"Game"}/>,
       },
       {
         path: "/login",
-        element: <Login />
+        element: <Login />,
+        errorElement: <ErrorPage fileName={"login"}/>,
       },
       {
         path: "/signup",
-        element: <Signup />
+        element: <Signup />,
+        errorElement: <ErrorPage fileName={"signup"}/>,
       },
       {
         path: "/profile",
-        element: <Profile />
+        element: <Profile />,
+        errorElement: <ErrorPage fileName={"profile"}/>,
       }
     ]
   },
@@ -49,6 +54,5 @@ const router = createBrowserRouter([
 root.render(
   <StrictMode>
     <RouterProvider router={router}/>
-    {/* <App /> */}
   </StrictMode>
 );

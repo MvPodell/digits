@@ -7,6 +7,12 @@
     flex-direction: row;
 }
 
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .buttonsModule {
     padding: 1rem;
 }
@@ -100,6 +106,7 @@ h1.game {
     display: flex;
     flex-wrap: wrap;
     max-width: 350px;
+    min-width: 332px;
     justify-content: center;
     align-items: center;
     margin: 0rem 1rem 1rem 1rem;

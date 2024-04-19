@@ -1,26 +1,34 @@
 import React from "react";
 import { calculateResult } from "../Calculate";
 import "../pages/game.css";
-import { auth, db } from "../firebase/Firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { addHighScore } from "../firebase/firestore";
+import { useAuth } from "../firebase/auth";
+import { setDoc, collection, doc } from "firebase/firestore";
+import { auth, db } from "../firebase/firebase";
 
-// const docRef = doc(db, "users");
-// const docSnap = await getDoc(docRef);
 
 export const CalculateButton = (props) => {
 
+  const saveDatatoFireStore = async (userId, winTally) => {
+    console.log("userID", userId);
+    const docRef = await setDoc(doc(db, "scores", userId), {
+      highScore: winTally+1
+    });
+    alert("doc written");
+  }
   
 
   const {
     clickedButtons,
     targetNumber,
+    success,
     setSuccess,
     winTally,
     setWinTally,
     setButtonStates
   } = props;
 
-  // const userId = auth.currentUser.uid;
+  const user = auth.currentUser;
 
   const handleClick = () => {
     const result = calculateResult(clickedButtons);
@@ -38,18 +46,15 @@ export const CalculateButton = (props) => {
       });
       console.log("Congratulations! You've reached the target number.");
       setWinTally(winTally + 1);
+      if (user) {
+        saveDatatoFireStore(user.uid, winTally);
+      }
+      
     } else {
       // incorrect answer - reset win tally
       setSuccess(false);
       setWinTally(0);
     }
-    // if (auth.currentUser) {
-    //   setDoc(doc(db, "users", userId), {
-    //      highScore: winTally
-    //   })
-    // }
-
-    handleVerdict();
   }
 
   return (
@@ -65,10 +70,13 @@ export const CalculateButton = (props) => {
   )
 };
 
-export const handleVerdict = (success, numbersGenerated, setButtonStates, generateRandomNumbers) => {
+export const handleVerdict = (success, numbersGenerated, setButtonStates, generateRandomNumbers, authUser) => {
+  
+  
   if (numbersGenerated) {
     setButtonStates(prevButtonStates => {
       if (success) {
+        // addHighScore(authUser.uid, winTally)
         return prevButtonStates.map((_, index) => {
           const successText = ["S", "U", "C", "C", "E", "SS"];
           return {
@@ -90,6 +98,5 @@ export const handleVerdict = (success, numbersGenerated, setButtonStates, genera
       }
     });
     setTimeout(generateRandomNumbers, 2000);
-    // generateRandomNumbers();
   }
 };

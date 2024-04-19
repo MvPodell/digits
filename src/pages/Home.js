@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { auth } from "../firebase/Firebase";
+import { auth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
 import "../styles.css";
 
@@ -29,7 +29,7 @@ export const Home = () => {
             
           )}
           {auth.currentUser && (
-            <button className="loginButton" onClick={(e) => logoutUser(e)}>Log out</button>
+            <button className="homeLoginButton" onClick={(e) => logoutUser(e)}>Log out</button>
           )}
         </div>
         <div className="homeContainer">
