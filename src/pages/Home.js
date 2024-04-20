@@ -1,13 +1,14 @@
-import React, {useEffect, useContext } from "react";
+import React, {useEffect, useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
-import { getUserHighScoreFromFirestore } from "../firebase/firestore";
+import { fetchHighestScoreUser, getUserHighScoreFromFirestore } from "../firebase/firestore";
 import "../styles.css";
 import { AppContext } from "./App";
 
 export const Home = () => {
   const { highScore, setHighScore } = useContext(AppContext);
+  const [highestScoreUser, setHighestScoreUser] = useState(null);
 
   const navigate = useNavigate();
   const logoutUser = async (e) => {
@@ -26,6 +27,7 @@ export const Home = () => {
       }
     };
     fetchUserHighScore();
+    fetchHighestScoreUser(setHighestScoreUser);
   }, []);
 
   const user = auth.currentUser;
@@ -57,10 +59,10 @@ export const Home = () => {
             </Link>
         </div>
         <div className="scoreboard">
-          {auth.currentUser && (
+          {auth.currentUser && highestScoreUser && (
             <>
               <p>Your current high score is {highScore}.</p>
-              <p>The current high score is ___ from user ___. </p>
+              <p>The current high score is {highestScoreUser.highScore} from user {highestScoreUser.username}. </p>
             </>
 
           )}

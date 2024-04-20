@@ -1,4 +1,4 @@
-import { addDoc, getDoc, setDoc, doc, collection } from "firebase/firestore";
+import { addDoc, getDoc, setDoc, doc, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
 export async function updateDataFromFirestore(userId, winTally) {
@@ -60,3 +60,22 @@ export async function addDocToFirestore(username, userId) {
         throw error;
     }
 };
+
+export async function fetchHighestScoreUser(setHighestScoreUser) {
+    const usersCollection = collection(db, 'users');
+    const q = query(usersCollection, orderBy('highScore', "desc"), limit(1));
+    
+    try {
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        const highestScoreDoc = snapshot.docs[0];
+        const highestScoreUserData = highestScoreDoc.data();
+        setHighestScoreUser({
+          username: highestScoreUserData.username,
+          highScore: highestScoreUserData.highScore
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching highest score:', error);
+    }
+  };
