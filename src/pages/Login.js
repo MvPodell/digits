@@ -25,7 +25,7 @@ const Login = () => {
         <div className="loginContainer">
             <div className="loginModule">
                 <div className="exitContainer">
-                    <Link className="exitButton" to="/">X</Link>
+                    <Link className="exitButton" to="/home">X</Link>
                 </div>
                 <div className="loginContainer">
                     <form className="loginForm">

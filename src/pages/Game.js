@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./game.css";
 import Button from "../components/Button";
 import { useNavigate, Link } from "react-router-dom";
 import { CalculateButton } from "../components/CalculateButton";
-import { auth, db } from "../firebase/firebase";
+import { auth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
 import "../firebase/firebase";
+import { getUserHighScoreFromFirestore } from "../firebase/firestore";
+import { AppContext } from "./App";
 
 export const Game = () => {
   const [targetNumber, setTargetNumber] = useState(0);
@@ -20,6 +22,8 @@ export const Game = () => {
     { style: "numberButton", disabled: false, text: "" },
     { style: "numberButton", disabled: false, text: "" },
   ]);
+
+  const { highScore, setHighScore } = useContext(AppContext);
 
   const navigate = useNavigate();
   const logoutUser = async (e) => {
@@ -38,6 +42,18 @@ export const Game = () => {
 
   useEffect(() => {
     generateTargetNumber();
+
+    const fetchUserHighScore = async () => {
+      if (user) {
+        const userHighScore = await getUserHighScoreFromFirestore(user.uid);
+        console.log("current high score for user: ", userHighScore);
+        setHighScore(userHighScore);
+      } else {
+        setHighScore(0);
+      }
+    };
+
+    fetchUserHighScore();
   }, []);
   return (
     <div className="gameContainer">
@@ -91,7 +107,12 @@ export const Game = () => {
           </div>
         </div>
         <div className="gameSidePanelRight">
-          <div className="sidePanelText">Top Score</div>
+          <div className="sidePanelText">
+            Top Score
+          </div>
+          <div className="sidePanelText">
+            {highScore}
+          </div>
           <div className="row tally">
               Win Streak: {winTally}
             </div>

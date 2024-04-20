@@ -12,21 +12,21 @@ import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
-import App from "./pages/App";
+import {App} from "./pages/App";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
-const router = createBrowserRouter([
-  {
-    path: "/home",
-    element: <Home />,
-    errorElement: <ErrorPage fileName={"Home"}/>
-  }, 
+const router = createBrowserRouter([ 
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage fileName={"App"}/>,
     children: [
+      {
+        path: "/home",
+        element: <Home />,
+        errorElement: <ErrorPage fileName={"Home"}/>
+      },
       {
         path: "/digits",
         element: <Game />,
