@@ -6,7 +6,7 @@ import { fetchHighestScoreUser, getUserHighScoreFromFirestore } from "../firebas
 import "../styles.css";
 import { AppContext } from "./App";
 
-export const Home = () => {
+export const Home = ({onStart, started, onLogin}) => {
   const { highScore, setHighScore } = useContext(AppContext);
   const [highestScoreUser, setHighestScoreUser] = useState(null);
 
@@ -32,6 +32,19 @@ export const Home = () => {
 
   const user = auth.currentUser;
 
+  const handleStartClick = () => {
+    console.log("Start button clicked");
+    if (!started) {
+      onStart(); // Call the onStart function passed from App
+    }
+};
+const handleLoginClick = () => {
+  console.log("login button clicked");
+  if (!started) {
+    onLogin(); // Call the onStart function passed from App
+  }
+};
+
   return (
     <div className="home">
       <div className="homeBody">
@@ -41,7 +54,7 @@ export const Home = () => {
         <div className="header">
           {!auth.currentUser && (
             <Link to="/login">
-              <button className="homeLoginButton">Login</button>
+              <button className="homeLoginButton" onClick={handleLoginClick}>Login</button>
             </Link>
             
           )}
@@ -54,9 +67,17 @@ export const Home = () => {
             <h1>Digits Game</h1>
             <h3>Combine the given numbers to reach the target total!</h3>
           </div>
-            <Link to="/digits">
-              <button className="startButton">Play</button>
+            {!started && (
+              <Link to="/digits">
+              <button className="startButton" onClick={handleStartClick}>Play</button>
             </Link>
+            )}
+            {started && (
+              <Link to="/digits">
+                <button className="startButton">Play</button>
+              </Link>
+            )}
+            
         </div>
         <div className="scoreboard">
           {auth.currentUser && highestScoreUser && (

@@ -2,7 +2,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   createBrowserRouter,
+  Router,
+  Routes,
+  Route,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -53,6 +57,10 @@ const router = createBrowserRouter([
 
 root.render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+      </Routes>
+    </RouterProvider>
   </StrictMode>
 );
