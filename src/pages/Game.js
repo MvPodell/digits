@@ -65,14 +65,14 @@ export const Game = () => {
             </svg>
           </Link>
         </div>
-        <h1 className="game">Digits</h1>
+        <h1 className="gameName">Digits</h1>
         {!user && (
-          <Link to="/login">
+          <Link to="/login" className="loginLink">
             <button className="gameLoginButton">Login</button>
           </Link>
         )}
         {user && (
-          <Link to="/login">
+          <Link to="/login" className="loginLink">
             <button className="gameLoginButton" onClick={(e) => logoutUser(e)}>Log Out</button>
           </Link>
         )}

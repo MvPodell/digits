@@ -69,8 +69,8 @@ const handleLoginClick = () => {
           </div>
             {!started && (
               <Link to="/digits">
-              <button className="startButton" onClick={handleStartClick}>Play</button>
-            </Link>
+                <button className="startButton" onClick={handleStartClick}>Play</button>
+              </Link>
             )}
             {started && (
               <Link to="/digits">
