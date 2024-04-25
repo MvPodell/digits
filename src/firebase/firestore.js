@@ -1,5 +1,5 @@
 import { addDoc, getDoc, setDoc, doc, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+import { db } from "./firebase";
 
 export async function updateDataFromFirestore(userId, winTally) {
     try {

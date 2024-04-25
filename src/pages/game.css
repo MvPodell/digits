@@ -14,7 +14,7 @@
 }
 
 .buttonsModule {
-    padding: 1rem;
+    padding: 0 1rem;
 }
 
 .calculate {
@@ -49,6 +49,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #fefbef;
 }
 
 .gameHeader {
@@ -65,7 +66,7 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    margin: 2rem;
+    margin: 1rem 2rem;
     flex-grow: 1;
     min-width: 150px;
 }
@@ -74,7 +75,7 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    margin: 2rem;
+    margin: 1rem 2rem;
     flex-grow: 1;
     justify-content: space-between;
     min-width: 150px;

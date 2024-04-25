@@ -108,10 +108,8 @@ export const Game = () => {
         </div>
         <div className="gameSidePanelRight">
           <div className="sidePanelText">
-            Top Score
-          </div>
-          <div className="sidePanelText">
-            {highScore}
+            <div>Top Score</div>
+            <div> {highScore}</div>
           </div>
           <div className="row tally">
               Win Streak: {winTally}
